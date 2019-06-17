@@ -1,16 +1,11 @@
-import express from 'express';
-import UserController from '../controllers/user.controller'
+import express from 'express'
+import UserRoutes from './userRouter'
+import ProductRoutes from './productRouter'
 
-const router = express.Router();
+const router = express.Router()
 
-router.route('/users/:id')
-    .get(UserController.getUserById)
-
-router.route('/users')
-    .get(UserController.getUsers)
-    .post(UserController.addUser)
-
-module.exports = router
+router.use('/users', UserRoutes.router)
+router.use('/products', ProductRoutes.router)
 
 export default {
     router

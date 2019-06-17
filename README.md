@@ -16,19 +16,20 @@ If there are better ways to do this, I am open for suggestions.
 
 
 # Project Layout
-Here is my logic on how this project is layed out.
+I significantly changed the structure of this app due to suggestions made on v1.
 
-## /routes
-This is where all my routes are. There isn't much going on here. They basically call functions in the /controllers folder.
+The app is now broken up by feature.
 
-## /controllers
-This is a place to take the request, pull any info from it if needed, respond to requests and etc.
+Each feature folder has the following files:
 
-## /services
-All business logic here, this is where the meat of the API will be. Gets data from databases and external sources if needed. 
+## Handler (i.e. productHandler.js)
+This is where the request is processed. Not a lot of logic here.
 
-## /db
-I assume this will be models but I am still learning and a bit confused on this part. I called it DB because I don't think I am using any models yet and it didn't seem fitting. I am currently using a query building to get data from DB and pass back to the service (i.e. user service).
+## Service (i.e. productService.js)
+Most of the logic for the app is here.
+
+## Queries (i.e. productQueries.js)
+All queries go here.
 
 _If you need more information or if I am not making something clear, please let me know!_
 

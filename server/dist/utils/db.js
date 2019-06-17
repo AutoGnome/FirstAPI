@@ -1,42 +1,44 @@
-import '../config/env'
-import connection from '../config/connection'
+"use strict";
+
+require("../config/env");
+
+var _connection = _interopRequireDefault(require("../config/connection"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var functionToCall = process.argv[2];
-
 var myFunctions = {
-    createDatabase: createDatabase,
-    dropDatabase: dropDatabase,
-    createUsersTable: createUsersTable,
-    createProductsTable: createProductsTable
-};
-
-// Functions
+  createDatabase: createDatabase,
+  dropDatabase: dropDatabase,
+  createUsersTable: createUsersTable,
+  createProductsTable: createProductsTable
+}; // Functions
 
 async function createDatabase() {
-    try {
-        var dbName = process.argv[3];
-        await connection.schema.raw('CREATE DATABASE ' + dbName)
-    } catch (error) {
-        console.log(error)
-    }
-    
-    connection.destroy();
+  try {
+    var dbName = process.argv[3];
+    await _connection.default.schema.raw('CREATE DATABASE ' + dbName);
+  } catch (error) {
+    console.log(error);
+  }
+
+  _connection.default.destroy();
 }
 
 async function dropDatabase() {
-    try {
-        var dbName = process.argv[3];
-        await connection.schema.raw('DROP DATABASE ' + dbName)
-    } catch (error) {
-        console.log(error)
-    }
-    
-    connection.destroy();
+  try {
+    var dbName = process.argv[3];
+    await _connection.default.schema.raw('DROP DATABASE ' + dbName);
+  } catch (error) {
+    console.log(error);
+  }
+
+  _connection.default.destroy();
 }
 
 async function createUsersTable() {
-    try {
-        await connection.schema.raw(`
+  try {
+    await _connection.default.schema.raw(`
         DROP TABLE IF EXISTS "products";
         
         CREATE TABLE "users" (
@@ -56,18 +58,19 @@ async function createUsersTable() {
           INSERT INTO "users" (name,email) VALUES ('Celeste Buckner','ac.libero.nec@consectetuer.ca'),('Idona Bray','nisl.Nulla.eu@In.co.uk'),('Geraldine Poole','ipsum.leo@ut.com'),('Alexa Raymond','euismod.et@Integersemelit.net'),('Calista Martinez','bibendum.Donec.felis@massaIntegervitae.ca'),('Melinda Prince','fringilla.purus.mauris@Nullamenim.ca'),('Ori Larsen','non.nisi@acrisusMorbi.co.uk'),('Rhona Flynn','pellentesque@atlacus.net'),('Rose Daugherty','Duis@magnisdisparturient.edu'),('Cassady Fisher','cursus.diam.at@auctorvitae.edu');
           INSERT INTO "users" (name,email) VALUES ('Signe Mcclain','nisi.Cum@convallisestvitae.com'),('Destiny Bowers','vitae@adipiscingMauris.ca'),('Jemima Whitley','sed.sem.egestas@vitaenibh.ca'),('Charde Montgomery','aliquet.Proin@vitaeorci.org'),('Ori Gaines','eget.volutpat.ornare@venenatislacus.edu'),('Macey Hayes','sapien.cursus.in@Duisdignissimtempor.ca'),('Whitney Padilla','tristique@odio.edu'),('Rina Dillard','convallis@tellusid.edu'),('Sonia Sutton','dolor.tempus@Vivamusrhoncus.com'),('Brittany Meyer','Mauris@utnisi.co.uk');
           
-        `)
-        
-    } catch (error) {
-        console.log(error)
-    }
+        `);
+  } catch (error) {
+    console.log(error);
+  }
 
-    connection.destroy();
-};
+  _connection.default.destroy();
+}
+
+;
 
 async function createProductsTable() {
-    try {
-        await connection.schema.raw(`
+  try {
+    await _connection.default.schema.raw(`
             DROP TABLE IF EXISTS "products";
 
             CREATE TABLE "products" (
@@ -82,14 +85,13 @@ async function createProductsTable() {
             INSERT INTO "products" (name,description,price) VALUES ('elit.','mus. Proin vel nisl. Quisque fringilla euismod enim.','5.95'),('enim.','nisl. Maecenas malesuada fringilla est.','5.13'),('id,','nisi. Cum sociis natoque penatibus','0.93'),('a','scelerisque dui. Suspendisse ac metus vitae velit','7.29'),('Nulla','vitae diam. Proin dolor. Nulla semper tellus id','3.73'),('ut','dapibus ligula. Aliquam erat volutpat. Nulla dignissim. Maecenas ornare egestas','7.91'),('porttitor','feugiat tellus lorem eu metus. In lorem.','3.60'),('primis','Mauris nulla. Integer urna. Vivamus molestie dapibus ligula. Aliquam','0.90'),('metus','magna tellus faucibus leo, in lobortis','1.86'),('neque.','Nunc sed orci lobortis augue scelerisque mollis. Phasellus libero mauris,','9.78'),('sollicitudin','nec, euismod in, dolor. Fusce feugiat. Lorem ipsum dolor','3.60'),('auctor,','libero. Integer in magna. Phasellus dolor elit,','8.27'),('Nullam','sed dolor. Fusce mi lorem, vehicula et, rutrum eu, ultrices','5.88'),('quam','consequat auctor, nunc nulla vulputate dui,','1.21'),('cursus','congue turpis. In condimentum. Donec at arcu.','5.16'),('imperdiet','non enim. Mauris quis turpis vitae purus gravida sagittis.','2.27'),('Suspendisse','tempor bibendum. Donec felis orci, adipiscing non, luctus','8.96'),('et','mi, ac mattis velit justo nec ante. Maecenas mi','1.56'),('lacus.','in lobortis tellus justo sit amet','8.77'),('ultrices','purus gravida sagittis. Duis gravida. Praesent','5.17');
             INSERT INTO "products" (name,description,price) VALUES ('ut','cursus luctus, ipsum leo elementum sem, vitae aliquam','1.72'),('tempus','sed, est. Nunc laoreet lectus quis massa. Mauris vestibulum, neque','9.12'),('enim','cursus, diam at pretium aliquet,','0.39'),('a,','id magna et ipsum cursus vestibulum. Mauris magna. Duis','4.78'),('lobortis','sodales nisi magna sed dui. Fusce aliquam, enim','1.21'),('neque.','fringilla ornare placerat, orci lacus vestibulum lorem,','1.03'),('parturient','nec urna et arcu imperdiet ullamcorper. Duis at lacus. Quisque','7.00'),('turpis.','urna. Nunc quis arcu vel quam','5.57'),('Donec','eleifend egestas. Sed pharetra, felis eget varius','0.83'),('Fusce','lacinia at, iaculis quis, pede. Praesent eu dui.','2.02'),('placerat.','magna. Cras convallis convallis dolor. Quisque','1.32'),('nisi','Nullam feugiat placerat velit. Quisque varius. Nam porttitor scelerisque neque.','1.12'),('pede','malesuada malesuada. Integer id magna et ipsum','3.73'),('lectus','tincidunt, neque vitae semper egestas,','1.58'),('at','id sapien. Cras dolor dolor, tempus non, lacinia at, iaculis','8.56'),('quis','Integer mollis. Integer tincidunt aliquam arcu. Aliquam','9.58'),('posuere','lobortis quam a felis ullamcorper viverra. Maecenas','2.79'),('mi','Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu.','9.72'),('sit','dolor quam, elementum at, egestas a, scelerisque sed,','1.93'),('auctor','lacinia vitae, sodales at, velit. Pellentesque ultricies dignissim lacus.','7.92');
             INSERT INTO "products" (name,description,price) VALUES ('porta','aliquet lobortis, nisi nibh lacinia orci, consectetuer euismod est arcu','6.74'),('id,','faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus','8.84'),('Cras','enim, gravida sit amet, dapibus id, blandit at,','5.31'),('Suspendisse','sodales at, velit. Pellentesque ultricies','7.32'),('Ut','ornare placerat, orci lacus vestibulum lorem, sit amet','3.39'),('mauris,','sit amet metus. Aliquam erat','9.15'),('amet','urna suscipit nonummy. Fusce fermentum','9.69'),('mollis','vestibulum lorem, sit amet ultricies sem magna','4.38'),('non','Morbi vehicula. Pellentesque tincidunt tempus risus.','1.06'),('id,','vulputate, nisi sem semper erat, in consectetuer ipsum nunc id','1.02'),('sed','egestas. Duis ac arcu. Nunc','9.45'),('Suspendisse','Nulla semper tellus id nunc interdum feugiat.','6.55'),('diam','Morbi quis urna. Nunc quis arcu vel quam dignissim','0.30'),('varius','fames ac turpis egestas. Fusce aliquet magna a','8.61'),('scelerisque','amet, risus. Donec nibh enim, gravida sit amet, dapibus id,','3.63'),('massa.','dis parturient montes, nascetur ridiculus mus. Proin vel','9.49'),('nibh','vitae purus gravida sagittis. Duis gravida. Praesent','7.01'),('pede','turpis. In condimentum. Donec at arcu. Vestibulum','1.20'),('in','arcu eu odio tristique pharetra. Quisque','3.21'),('eget','dis parturient montes, nascetur ridiculus mus. Aenean eget','4.61');
-        `)
-    } catch (error) {
-        console.log(error)
-    }
+        `);
+  } catch (error) {
+    console.log(error);
+  }
 
-    connection.destroy();
-};
+  _connection.default.destroy();
+}
 
-
-
+;
 myFunctions[functionToCall]();
